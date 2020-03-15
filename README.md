@@ -24,3 +24,11 @@
   ></NavSearch>
 </CSSTransition>
 ```
+
+## 3.使用 React-Redux 管理数据
+
+- yarn add redux
+- yarn add react-redux
+- store -> action -> reducer -> store
+- Provider -> connent -> mapStateToProps / mapDispatchToProps
+- 无状态组件性能高
