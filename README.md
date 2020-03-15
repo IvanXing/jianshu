@@ -11,3 +11,16 @@
 - src/common/header
 - 引入 inconfont，放在全局，index 中导入
 - 修改 inconfont.css 为.js，文件中的 src 以及 url 中加./
+- 搜索框动画 => 通过数据改变更新 DOM (onFocus 以及 onBlur)
+- yarn add react-transition-group 动画效果
+- CSSTransition: in 控制变量，timeout 控制时间，slide( slide-enter / slide-enter-active / slide-exit / slide-exit-active)
+
+```js
+<CSSTransition in={this.state.focused} timeout={200} classNames="slide">
+  <NavSearch
+    className={this.state.focused ? "focused" : ""}
+    onFocus={this.handleInputFocus}
+    onBlur={this.handleInputBlur}
+  ></NavSearch>
+</CSSTransition>
+```
