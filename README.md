@@ -32,3 +32,9 @@
 - store -> action -> reducer -> store
 - Provider -> connent -> mapStateToProps / mapDispatchToProps
 - 无状态组件性能高
+
+## 4.使用 combineReducers 完成数据拆分管理
+
+- redux-devtools-extension 的启用
+- 最外层 reducer 代码冗余，根据组件拆分 reducer，并在最外层 combineReducers
+- 引入路径的改造

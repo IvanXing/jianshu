@@ -1,18 +1,15 @@
-const defaultState = {
-  focused: false
-};
+import { combineReducers } from "redux";
+// 导入路径太长
+// import headerReducer from "../common/header/store/reducer";
+// index改造 会自动找store下的reducer，并重命名为headerReducer
+import { reducer as headerReducer } from "../common/header/store";
 
-// reducer导出一个纯函数（固定输入有固定输出且无副作用）
-export default (state = defaultState, action) => {
-  if (action.type === "search_focus") {
-    return {
-      focused: true
-    };
-  }
-  if (action.type === "search_blur") {
-    return {
-      focused: false
-    };
-  }
-  return state;
-};
+const reducer = combineReducers({
+  header: headerReducer
+});
+
+export default reducer;
+
+// export default combineReducers({
+//   header: headerReducer
+// });
