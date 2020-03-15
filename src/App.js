@@ -1,7 +1,8 @@
 import React from "react";
+import Header from "./common/header/index";
 
 function App() {
-  return <div className="dell">hello world</div>;
+  return <Header />;
 }
 
 export default App;
