@@ -38,3 +38,9 @@
 - redux-devtools-extension 的启用
 - 最外层 reducer 代码冗余，根据组件拆分 reducer，并在最外层 combineReducers
 - 引入路径的改造
+
+## 5.actionCreators 与 constants 的拆分
+
+- actionCreators 把 action 命名提出，导入直接调用
+- constants 常量，把 action 命名集中在一起
+- store 中的所有内容都通过 store/index.js 导出暴露出统一位置，方便别的文件引入

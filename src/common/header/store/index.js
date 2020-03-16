@@ -1,3 +1,7 @@
-import reducer from "./reducer";
+// 把header组件下的store统一到index.js中暴露向外
 
-export { reducer };
+import reducer from "./reducer";
+import * as actionCreators from "./actionCreators";
+import * as constants from "./constants";
+
+export { reducer, actionCreators, constants };
