@@ -44,3 +44,26 @@
 - actionCreators 把 action 命名提出，导入直接调用
 - constants 常量，把 action 命名集中在一起
 - store 中的所有内容都通过 store/index.js 导出暴露出统一位置，方便别的文件引入
+
+## 6.使用 immutable.js
+
+- yarn add immutable（避免自己手动修改 state 的风险）
+- immutable 提供一个 fromJS 方法，把 reducer 中的 state 变成不可变对象
+- 设置以及返回不可变对象的 set 和 get 方法
+- immutable 的 set 方法会结合之前 immutable 对象的值，和设置的值，返回一个全新的对象，保证纯函数
+- state.header 下的 focused 已经是一个 immutable 对象，为了取值统一，应该把最外层 state 也设置成不可变对象，就需要
+- yarn add redux-immutable
+- 原始的 combineReducers 从 redux 中来，改造的 combineReducers 从 redux-immutable 中来
+
+```js
+const mapStateToProps = state => {
+  return {
+    // 未把state变成immutable对象
+    focused: state.header.get("focused")
+    // 引入redux-immutable把state也变成了不可变对象
+    focused: state.get("header").get("focused")
+    // getIn方法为不可变对象state下header下的focused
+    focused: state.getIn(['header', 'focused'])
+  };
+};
+```
