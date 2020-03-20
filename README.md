@@ -107,6 +107,7 @@ export default store;
 ```
 
 ```js
+// spin.style.transform = 'rotate(360deg)' 360度旋转 不是0-9的数字替换成空
 let originAngle = spin.style.transform.replace(/[^0-9]/gi, "");
 if (originAngle) {
   originAngle = parseInt(originAngle, 10);

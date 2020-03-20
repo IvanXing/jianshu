@@ -74,7 +74,7 @@ class Header extends Component {
   }
 
   render() {
-    const { focused, handleInputFocus, handleInputBlur } = this.props;
+    const { focused, handleInputFocus, handleInputBlur, list } = this.props;
     return (
       <HeaderWrapper>
         <Logo href="./" />
@@ -89,7 +89,7 @@ class Header extends Component {
             <CSSTransition in={focused} timeout={200} classNames="slide">
               <NavSearch
                 className={focused ? "focused" : ""}
-                onFocus={handleInputFocus}
+                onFocus={() => handleInputFocus(list)}
                 onBlur={handleInputBlur}
               ></NavSearch>
             </CSSTransition>
@@ -136,7 +136,9 @@ const mapStateToProps = state => {
 // 派发动作
 const mapDispatchToProps = dispatch => {
   return {
-    handleInputFocus() {
+    handleInputFocus(list) {
+      // 数据非0再请求
+      list.size === 0 && dispatch(actionCreators.getList());
       // 派发获取list tab的数据
       dispatch(actionCreators.getList());
       // 派发聚焦操作
