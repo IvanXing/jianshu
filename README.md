@@ -116,3 +116,25 @@ if (originAngle) {
 }
 spin.style.transform = "rotate(" + (originAngle + 360) + "deg)";
 ```
+
+## 9.路由
+
+- yarn add react-router-dom
+
+```js
+// BrowserRouter路由，Route路由规则
+import { BrowserRouter, Route } from "react-router-dom";
+class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <Header />
+        <BrowserRouter>
+          <Route path="/" exact render={() => <div>home</div>}></Route>
+          <Route path="/detail" exact render={() => <div>detail</div>}></Route>
+        </BrowserRouter>
+      </Provider>
+    );
+  }
+}
+```
