@@ -22,8 +22,8 @@ import {
 } from "./style";
 
 class Header extends Component {
-  getListArea(show) {
-    if (show) {
+  getListArea() {
+    if (this.props.focused) {
       return (
         <SearchInfo>
           <SearchInfoTitle>
@@ -31,10 +31,9 @@ class Header extends Component {
             <SearchInfoSwitch>换一批</SearchInfoSwitch>
           </SearchInfoTitle>
           <SearchInfoList>
-            <SearchInfoItem>hahah</SearchInfoItem>
-            <SearchInfoItem>hahah</SearchInfoItem>
-            <SearchInfoItem>hahah</SearchInfoItem>
-            <SearchInfoItem>hahah</SearchInfoItem>
+            {this.props.list.map(item => {
+              return <SearchInfoItem key={item}>{item}</SearchInfoItem>;
+            })}
           </SearchInfoList>
         </SearchInfo>
       );
@@ -69,7 +68,7 @@ class Header extends Component {
             <i className={this.props.focused ? "focused iconfont" : "iconfont"}>
               &#xe614;
             </i>
-            {this.getListArea(this.props.focused)}
+            {this.getListArea()}
           </SearchWrapper>
         </Nav>
         <Addition>
@@ -88,6 +87,7 @@ class Header extends Component {
 //   return (props.focused);
 // };
 
+// store中取数据
 const mapStateToProps = state => {
   return {
     // 原始写法
@@ -97,13 +97,18 @@ const mapStateToProps = state => {
     // 引入redux-immutable把state也变成了不可变对象
     //focused: state.get("header").get("focused")
     // getIn方法为不可变对象state下header下的focused
-    focused: state.getIn(["header", "focused"])
+    focused: state.getIn(["header", "focused"]),
+    list: state.getIn(["header", "list"])
   };
 };
 
+// 派发动作
 const mapDispatchToProps = dispatch => {
   return {
     handleInputFocus() {
+      // 派发获取list tab的数据
+      dispatch(actionCreators.getList());
+      // 派发聚焦操作
       dispatch(actionCreators.searchFocus());
     },
     handleInputBlur() {

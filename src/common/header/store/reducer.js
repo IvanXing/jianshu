@@ -2,7 +2,8 @@ import * as constants from "./constants";
 import { fromJS } from "immutable";
 
 const defaultState = fromJS({
-  focused: false
+  focused: false,
+  list: []
 });
 
 // reducer导出一个纯函数（固定输入有固定输出且无副作用）
@@ -18,6 +19,9 @@ export default (state = defaultState, action) => {
   if (action.type === constants.SEARCH_BLUR) {
     return state.set("focused", false);
     // return { focused: false };
+  }
+  if (action.type === constants.CHANGE_LIST) {
+    return state.set("list", action.data);
   }
   return state;
 };

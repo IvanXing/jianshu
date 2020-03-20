@@ -67,3 +67,25 @@ const mapStateToProps = state => {
   };
 };
 ```
+
+## 7.使用 redux-thunk 中间件构建 ajax 获取数据部分
+
+- yarn add redux-thunk 在 action 中做异步的操作
+- redux-thunk 是 action 和 store 之间的中间件
+- 最外层 store 中从 redux 中导入 applyMiddleware，创建 store 时，调用 thunk
+
+```js
+import { createStore, compose, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import reducer from "./reducer";
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
+
+export default store;
+```
+
+- yarn add axios
+- 注意 immutable 的数据类型的赋值也需要是 immutable 格式的数据
+- mock 数据：先找真实路径，再找 public/api/headerList.json
+- state -> mapStateToProps -> this.props.xxx -> mapDispatchToProps -> actionCreator -> diapatch -> state -> mapStateToProps
