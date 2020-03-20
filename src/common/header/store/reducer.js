@@ -12,7 +12,8 @@ const defaultState = fromJS({
 export default (state = defaultState, action) => {
   console.log("接收参数action::", action);
   if (action.type === constants.SEARCH_FOCUS) {
-    return state.set("focused", true); // 返回也是一个不可变对象
+    // immutable 的 set 方法会结合之前 immutable 对象的值，和设置的值，返回一个全新的不可变对象
+    return state.set("focused", true);
   }
   if (action.type === constants.SEARCH_BLUR) {
     return state.set("focused", false);

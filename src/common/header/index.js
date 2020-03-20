@@ -90,6 +90,9 @@ class Header extends Component {
 
 const mapStateToProps = state => {
   return {
+    // 原始写法
+    // focused: state.header.focused
+    // 引入immutable写法
     // focused: state.header.get("focused")
     // 引入redux-immutable把state也变成了不可变对象
     //focused: state.get("header").get("focused")
