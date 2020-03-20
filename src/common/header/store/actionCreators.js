@@ -10,10 +10,24 @@ export const searchBlur = () => ({
   type: constants.SEARCH_BLUR
 });
 
+export const mouseEnter = () => ({
+  type: constants.MOUSE_ENTER
+});
+
+export const mouseLeave = () => ({
+  type: constants.MOUSE_LEAVE
+});
+
+export const changePage = page => ({
+  type: constants.CHANGE_PAGE,
+  page
+});
+
 const changeList = data => {
   return {
     type: constants.CHANGE_LIST,
-    data: fromJS(data) // reducer中设置的是immutable的数据，此处先转换
+    data: fromJS(data), // reducer中设置的是immutable的数据，此处先转换
+    totalPage: Math.ceil(data.length / 10) // Math.ceil取整
   };
 };
 

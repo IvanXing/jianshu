@@ -3,7 +3,10 @@ import { fromJS } from "immutable";
 
 const defaultState = fromJS({
   focused: false,
-  list: []
+  mouseIn: false, // 鼠标是否在小tab上
+  list: [],
+  page: 1,
+  totalPage: 1
 });
 
 // reducer导出一个纯函数（固定输入有固定输出且无副作用）
@@ -19,7 +22,18 @@ export default (state = defaultState, action) => {
     case constants.SEARCH_BLUR:
       return state.set("focused", false);
     case constants.CHANGE_LIST:
-      return state.set("list", action.data);
+      // return state.set("list", action.data).set("totalPage", action.totalPage);
+      // set多次会返回多个immutable，性能问题，merge只执行一次
+      return state.merge({
+        list: action.data,
+        totalPage: action.totalPage
+      });
+    case constants.MOUSE_ENTER:
+      return state.set("mouseIn", true);
+    case constants.MOUSE_LEAVE:
+      return state.set("mouseIn", false);
+    case constants.CHANGE_PAGE:
+      return state.set("page", action.page);
     default:
       return state;
   }

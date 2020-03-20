@@ -23,19 +23,37 @@ import {
 
 class Header extends Component {
   getListArea() {
-    const { focused, list } = this.props;
-    if (focused) {
+    const {
+      focused,
+      list,
+      page,
+      totalPage,
+      mouseIn,
+      handleMouseEnter,
+      handleMouseLeave,
+      handleChangePage
+    } = this.props;
+    const newList = list.toJS(); // list是immutable对象
+    const pageList = [];
+    // 初始化会执行空list 出现key报错，增加判断
+    if (newList.length) {
+      for (let i = (page - 1) * 10; i < page * 10; i++) {
+        pageList.push(
+          <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
+        );
+      }
+    }
+    if (focused || mouseIn) {
       return (
-        <SearchInfo>
-          <SearchInfoTitle>
+        <SearchInfo
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <SearchInfoTitle onClick={() => handleChangePage(page, totalPage)}>
             热门搜索
             <SearchInfoSwitch>换一批</SearchInfoSwitch>
           </SearchInfoTitle>
-          <SearchInfoList>
-            {list.map(item => {
-              return <SearchInfoItem key={item}>{item}</SearchInfoItem>;
-            })}
-          </SearchInfoList>
+          <SearchInfoList>{pageList}</SearchInfoList>
         </SearchInfo>
       );
     } else {
@@ -96,7 +114,10 @@ const mapStateToProps = state => {
     //focused: state.get("header").get("focused")
     // getIn方法为不可变对象state下header下的focused
     focused: state.getIn(["header", "focused"]),
-    list: state.getIn(["header", "list"])
+    list: state.getIn(["header", "list"]),
+    page: state.getIn(["header", "page"]),
+    totalPage: state.getIn(["header", "totalPage"]),
+    mouseIn: state.getIn(["header", "mouseIn"])
   };
 };
 
@@ -111,6 +132,20 @@ const mapDispatchToProps = dispatch => {
     },
     handleInputBlur() {
       dispatch(actionCreators.searchBlur());
+    },
+    handleMouseEnter() {
+      dispatch(actionCreators.mouseEnter());
+    },
+    handleMouseLeave() {
+      dispatch(actionCreators.mouseLeave());
+    },
+    handleChangePage(page, totalPage) {
+      // page等于totalPage就恢复1
+      if (page < totalPage) {
+        dispatch(actionCreators.changePage(page + 1));
+      } else {
+        dispatch(actionCreators.changePage(1));
+      }
     }
   };
 };
