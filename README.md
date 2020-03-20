@@ -89,3 +89,29 @@ export default store;
 - 注意 immutable 的数据类型的赋值也需要是 immutable 格式的数据
 - mock 数据：先找真实路径，再找 public/api/headerList.json
 - state -> mapStateToProps -> this.props.xxx -> mapDispatchToProps -> actionCreator -> diapatch -> state -> mapStateToProps
+
+## 8.换一换图标旋转
+
+- CSSTransition
+- transition 需在 display:block 下
+
+```js
+// 通过ref获取DOM
+<i
+  ref={icon => {
+    this.spinIcon = icon;
+  }}
+>
+  &#xe851;
+</i>
+```
+
+```js
+let originAngle = spin.style.transform.replace(/[^0-9]/gi, "");
+if (originAngle) {
+  originAngle = parseInt(originAngle, 10);
+} else {
+  originAngle = 0;
+}
+spin.style.transform = "rotate(" + (originAngle + 360) + "deg)";
+```
