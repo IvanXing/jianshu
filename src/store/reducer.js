@@ -10,9 +10,11 @@ import { combineReducers } from "redux-immutable";
 // index改造 会自动找store下的reducer，并重命名为headerReducer
 
 import { reducer as headerReducer } from "../common/header/store";
+import { reducer as homeReducer } from "../pages/home/store";
 
 const reducer = combineReducers({
-  header: headerReducer
+  header: headerReducer,
+  home: homeReducer
 });
 
 export default reducer;

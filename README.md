@@ -138,3 +138,24 @@ class App extends Component {
   }
 }
 ```
+
+- 关于单页面应用的跳页
+  - 单页应用：不管如何跳转，只会加载一次 html 文件
+
+```js
+// 点击跳转详情，每次加载一次html
+<a href="/detail"></a>;
+// 用Routet
+import { Link } from "react-router-dom";
+<Link key={index} to={"/detail/" + item.get("id")}></Link>;
+```
+
+## 10. 避免无意义的 dom diff
+
+- 需要 immutable 和 PureComponent 配合使用，否则有坑
+- 不使用 immutable 则自己写 shouldComupdate 来避免数据未变无意义的渲染
+
+```js
+// fiber提供PureComponent 内部实现了shouldComupdate
+import React, { PureComponent } from "react";
+```
