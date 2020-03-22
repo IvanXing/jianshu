@@ -141,6 +141,7 @@ class App extends Component {
 ```
 
 - 关于单页面应用的跳页
+
   - 单页应用：不管如何跳转，只会加载一次 html 文件
 
 ```js
@@ -149,6 +150,16 @@ class App extends Component {
 // 用Route
 import { Link } from "react-router-dom";
 <Link key={index} to={"/detail/" + item.get("id")}></Link>;
+```
+
+- 异步加载需要的组件（异步组件），防止单页面应用首次加载 html 太大
+
+```js
+yarn add react-loadable
+import Detail from "./pages/detail/loadable.js";
+// 此时是从loadable中导入的，路由出现不匹配，无法获取参数
+import { withRouter } from "react-router-dom";
+export default connect(mapState, mapDispatch)(withRouter(Detail));
 ```
 
 - 页面路由参数的传递
