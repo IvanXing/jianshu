@@ -145,10 +145,34 @@ class App extends Component {
 ```js
 // 点击跳转详情，每次加载一次html
 <a href="/detail"></a>;
-// 用Routet
+// 用Route
 import { Link } from "react-router-dom";
 <Link key={index} to={"/detail/" + item.get("id")}></Link>;
 ```
+
+- 页面路由参数的传递
+  - 动态路由
+  ```js
+  // 组件内跳转部分
+  <Link key={index} to={"/detail/" + item.get("id")}></Link>
+  // 匹配跳转组件
+  <Route path="/detail/:id" exact component={Detail}></Route>
+  // Detail部分获取参数
+  this.props.match.params.id
+  // 此种地址栏
+  http://localhost:3000/detail/2
+  ```
+  - 另一种
+  ```js
+  // 组件内跳转部分
+   <Link key={index} to={"/detail/?id=" + item.get("id")}></Link>
+  // 匹配跳转组件
+  <Route path="/detail/" exact component={Detail}></Route>
+  // Detail部分获取参数
+  this.props.location.search // ?id=2
+  // 此种地址栏
+  http://localhost:3000/detail/?id=2
+  ```
 
 ## 10. 避免无意义的 dom diff
 

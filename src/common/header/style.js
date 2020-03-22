@@ -11,7 +11,8 @@ export const HeaderWrapper = styled.div`
 /* 左边简书logo */
 // bg引入图片以及size-contian填充方法
 // styled.a.attrs({ href: '/' })
-export const Logo = styled.a`
+// export const Logo = styled.a` 用了<Link>
+export const Logo = styled.div`
   position: absolute;
   top: 0;
   left: 0;
