@@ -3,6 +3,7 @@ import logoPic from "../../statics/logo.png"; //bg引入图片方法
 
 /* header包裹部分 */
 export const HeaderWrapper = styled.div`
+  z-index: 1;
   positon: relative;
   height: 58px;
   border-bottom: 1px solid #f0f0f0;

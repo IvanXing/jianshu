@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 // import * as actionCreators from "./store/actionCreators";
 import { actionCreators } from "./store";
+import { actionCreators as loginActionCreators } from "../../pages/login/store";
 
 import {
   HeaderWrapper,
@@ -75,7 +76,14 @@ class Header extends Component {
   }
 
   render() {
-    const { focused, handleInputFocus, handleInputBlur, list } = this.props;
+    const {
+      focused,
+      handleInputFocus,
+      handleInputBlur,
+      list,
+      login,
+      logout
+    } = this.props;
     return (
       <HeaderWrapper>
         <Link to="/">
@@ -84,7 +92,15 @@ class Header extends Component {
         <Nav>
           <NavItem className="left active">首页</NavItem>
           <NavItem className="left">下载APP</NavItem>
-          <NavItem className="right">登录</NavItem>
+          {login ? (
+            <NavItem onClick={logout} className="right">
+              退出
+            </NavItem>
+          ) : (
+            <Link to="/login">
+              <NavItem className="right">登陆</NavItem>
+            </Link>
+          )}
           <NavItem className="right">
             <i className="iconfont">&#xe636;</i>
           </NavItem>
@@ -132,7 +148,8 @@ const mapStateToProps = state => {
     list: state.getIn(["header", "list"]),
     page: state.getIn(["header", "page"]),
     totalPage: state.getIn(["header", "totalPage"]),
-    mouseIn: state.getIn(["header", "mouseIn"])
+    mouseIn: state.getIn(["header", "mouseIn"]),
+    login: state.getIn(["login", "login"])
   };
 };
 
@@ -171,6 +188,9 @@ const mapDispatchToProps = dispatch => {
       } else {
         dispatch(actionCreators.changePage(1));
       }
+    },
+    logout() {
+      dispatch(loginActionCreators.logout());
     }
   };
 };

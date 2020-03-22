@@ -94,6 +94,7 @@ export default store;
 
 - CSSTransition
 - transition 需在 display:block 下
+- innerRef
 
 ```js
 // 通过ref获取DOM
@@ -173,6 +174,12 @@ import { Link } from "react-router-dom";
   // 此种地址栏
   http://localhost:3000/detail/?id=2
   ```
+- 路由重定向
+
+```js
+import { Redirect } from "react-router-dom";
+return <Redirect to="/" />;
+```
 
 ## 10. 避免无意义的 dom diff
 
